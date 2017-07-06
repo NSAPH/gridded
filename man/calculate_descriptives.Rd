@@ -2,7 +2,7 @@
 % Please edit documentation in R/process_gridded_data.R
 \name{calculate_descriptives}
 \alias{calculate_descriptives}
-\title{Calculate descriptives: mean, median, quantiles}
+\title{Calculate descriptives: mean, median, percentiles}
 \usage{
 calculate_descriptives(data = D, only_mean = FALSE, name = "Quantity")
 }
@@ -19,5 +19,5 @@ percentiles are returned.}
 a (monitor x number of descriptives) data table
 }
 \description{
-Calculate descriptives: mean, median, quantiles
+Calculate descriptives: mean, median, percentiles
 }
