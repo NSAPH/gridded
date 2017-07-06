@@ -9,7 +9,10 @@ calculate_descriptives <- function(data = D, only_mean = FALSE, name = "Quantity
   tData <- tData[, lapply(.SD, as.numeric)] # convert back to numeric
   Aver <- data.table(Aver = rowMeans(tData, na.rm = TRUE))
   if (!only_mean) {
-    Quantiles <- data.table(t(apply(tData, 1, quantile, c(0.1, 0.5, 0.9), na.rm = TRUE)))
+    Quantiles <- data.table(t(apply(tData,
+                                    1,
+                                    quantile, c(0.01, 0.05, 0.1, 0.5, 0.9, 0.95, 0.99),
+                                    na.rm = TRUE)))
     setnames(Quantiles, names(Quantiles), c("Q10", "Median", "Q90"))
   }
   if (only_mean) {
