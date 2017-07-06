@@ -60,7 +60,10 @@ add_date_and_season <- function(data = D, year = 2001) {
   return(data)
 }
 
-##----- Create filename
+#' Create filename
+#'
+#' @param quantity the quantity to be processed
+#' @param year the corresponding reanalysis year
 
 create_filename <- function(quantity = "air.sfc", year = 2000) {
   if (!quantity %in% c("air.sfc", "apcp", "dlwrf", "evap", "lhtfl", "prate",
