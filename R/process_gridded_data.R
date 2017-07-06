@@ -1,7 +1,12 @@
-library(data.table)
-library(R.matlab)
-
-##----- Calculate descriptives: mean, median, quantiles
+#' Calculate descriptives: mean, median, quantiles
+#'
+#' @param data a data table of dimensions (days x monitors).
+#' @param only_mean logical.  If TRUE, onthe the annual mean is returned.
+#'                  If FALSE, the mean, median, 1%, 5%, 10%, 90%, 95%, 99%
+#'                  percentiles are returned.
+#' @param name the character that will be used a prefix in column names
+#'
+#' @return a (monitor x number of descriptives) data table
 
 calculate_descriptives <- function(data = D, only_mean = FALSE, name = "Quantity") {
   tData <- data.table(t(data))
