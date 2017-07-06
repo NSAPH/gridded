@@ -14,3 +14,4 @@ LazyData: true
 Imports:
     data.table,
     R.matlab
+RoxygenNote: 6.0.1

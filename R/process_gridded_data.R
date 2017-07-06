@@ -33,7 +33,12 @@ calculate_descriptives <- function(data = D, only_mean = FALSE, name = "Quantity
   return(result)
 }
 
-##----- Add Date and Season to dataset
+#' Add Date and Season to a data table
+#'
+#' @param data a data table read from a year of reanalysis data
+#' @param year the corresponding reanalysis year
+#'
+#' @return the data with two added rows: date and season
 
 add_date_and_season <- function(data = D, year = 2001) {
   begin_january <- paste0(year, "-01-01")
