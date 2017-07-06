@@ -13,7 +13,9 @@ calculate_descriptives <- function(data = D, only_mean = FALSE, name = "Quantity
                                     1,
                                     quantile, c(0.01, 0.05, 0.1, 0.5, 0.9, 0.95, 0.99),
                                     na.rm = TRUE)))
-    setnames(Quantiles, names(Quantiles), c("Q10", "Median", "Q90"))
+    setnames(Quantiles,
+             names(Quantiles),
+             c("Q01", "Q05", "Q10", "Median", "Q90", "Q95", "Q99"))
   }
   if (only_mean) {
     result <- Aver
