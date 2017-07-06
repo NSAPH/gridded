@@ -75,7 +75,17 @@ create_filename <- function(quantity = "air.sfc", year = 2000) {
   return(filename)
 }
 
-##----- Example: air.sfc for year 2001
+#' Process gridded data
+#'
+#' @param quantity the quantity to be processed
+#' @param year the corresponding reanalysis year
+#' @param seasonal logical.
+#' @param only_mean logical.  If TRUE, onthe the annual mean is returned.
+#'                  If FALSE, the mean, median, 1%, 5%, 10%, 90%, 95%, 99%
+#'                  percentiles are returned.
+#' @param folder the folder where the reanalysis data is downloaded
+#'
+#' @return a data table (monitor x number of descriptives)
 
 process_gridded_data <- function(quantity = "air.sfc", year = 2001,
                                  seasonal = TRUE, only_mean = FALSE,
