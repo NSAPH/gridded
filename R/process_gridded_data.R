@@ -1,4 +1,4 @@
-#' Calculate descriptives: mean, median, quantiles
+#' Calculate descriptives: mean, median, percentiles
 #'
 #' @param data a data table of dimensions (days x monitors).
 #' @param only_mean logical.  If TRUE, onthe the annual mean is returned.
