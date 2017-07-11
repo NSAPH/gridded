@@ -1,3 +1,5 @@
+#' @import data.table
+
 #' Calculate descriptives: mean, median, percentiles
 #'
 #' @param data a data table of dimensions (days x monitors).
@@ -154,8 +156,8 @@ quantities <- c("air.sfc", "apcp", "dlwrf", "evap", "lhtfl", "prate",
                 "uwnd.10m", "vwnd.10m", "weasd")
 years <- 2000:2012
 
-library(data.table)
+# library(data.table)
 processes <- data.table(expand.grid(quantities, years))
-setnames(processes, names(processes), c("quantities", "years"))
-processes[, process := 0:(nrow(processes) - 1)]
-processes
+# setnames(processes, names(processes), c("quantities", "years"))
+# processes[, process := 0:(nrow(processes) - 1)]
+# processes
