@@ -1,5 +1,3 @@
-#' @import data.table
-
 #' Calculate descriptives: mean, median, percentiles
 #'
 #' @param data a data table of dimensions (days x monitors).
@@ -133,6 +131,21 @@ process_gridded_data <- function(quantity = "air.sfc", year = 2001,
   return(result)
 }
 
+list_reanalysis_files <- function() {
+  quantities <- c("air.sfc", "apcp", "dlwrf", "evap", "lhtfl", "prate",
+                  "shtfl", "shum.2m", "snowc", "soilm", "tcdc", "ulwrf",
+                  "uwnd.10m", "vwnd.10m", "weasd")
+  years <- 2000:2012
+  processes <- expand.grid(quantities, years)
+  names(processes) <- c("quantities", "years")
+  processes$process <- 0:(nrow(processes) - 1)
+  return(processes)
+}
+
+# processes <-  list_reanalysis_files()
+# processes <- data.frame(processes)
+# create_filename(processes[1, 1], processes[1, 2])
+
 # air.sfc_2001 <- process_gridded_data(year = 2001)
 # fwrite(air.sfc_2001, "air.sfc_2001.csv")
 
@@ -150,14 +163,3 @@ process_gridded_data <- function(quantity = "air.sfc", year = 2001,
 #
 # M <- merge(ne_sites, sites, by = c("Lat", "Lon"), all.x = TRUE)
 # M
-
-quantities <- c("air.sfc", "apcp", "dlwrf", "evap", "lhtfl", "prate",
-                "shtfl", "shum.2m", "snowc", "soilm", "tcdc", "ulwrf",
-                "uwnd.10m", "vwnd.10m", "weasd")
-years <- 2000:2012
-
-# library(data.table)
-processes <- data.table(expand.grid(quantities, years))
-# setnames(processes, names(processes), c("quantities", "years"))
-# processes[, process := 0:(nrow(processes) - 1)]
-# processes
