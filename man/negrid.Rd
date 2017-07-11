@@ -15,6 +15,6 @@ negrid
 }
 \description{
 A dataset containing the site code, latitude and longitude
-of the grid cells in New England
+of grid cells in New England.
 }
 \keyword{datasets}
