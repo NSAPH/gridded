@@ -125,26 +125,5 @@ list_reanalysis_files <- function() {
   return(processes)
 }
 
-# processes <-  list_reanalysis_files()
-# f <- create_filename(processes[1, 1], processes[1, 2])
-# air.sfc_2001 <- process_gridded_data(year = 2001)
-# fwrite(air.sfc_2001, "air.sfc_2001.csv")
-
 # negrid <- read.csv("~/Documents/Tmp/MeasurementError/ne_grids.csv")
 # devtools::use_data(negrid)
-
-
-# ##----- A comparison with the bounding box we defined
-#
-# sites <- fread("ne_grids.csv")
-#
-# old_sites <- data.table(data.frame(readMat("~/Dropbox/HEI_MeasError/QD_Gpred/matlab_files/USAODGridSite.mat")))
-# setnames(old_sites, names(old_sites), names(sites))
-#
-# ne_sites <- old_sites[which((old_sites$Lat >= summary(sites$Lat)[1] &
-#                                old_sites$Lat <= summary(sites$Lat)[6])
-#                             & (old_sites$Lon < summary(sites$Lon)[6] &
-#                                  old_sites$Lon > summary(sites$Lon)[1])), ]
-#
-# M <- merge(ne_sites, sites, by = c("Lat", "Lon"), all.x = TRUE)
-# M
