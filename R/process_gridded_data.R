@@ -16,11 +16,11 @@ calculate_descriptives <- function(data = D, only_mean = FALSE, name = "Quantity
   if (!only_mean) {
     Quantiles <- data.table(t(apply(tData,
                                     1,
-                                    quantile, c(0.01, 0.05, 0.1, 0.5, 0.9, 0.95, 0.99),
+                                    quantile, c(0.05, 0.1, 0.5, 0.9, 0.95),
                                     na.rm = TRUE)))
     setnames(Quantiles,
              names(Quantiles),
-             c("Q01", "Q05", "Q10", "Median", "Q90", "Q95", "Q99"))
+             c("Q05", "Q10", "Median", "Q90", "Q95"))
   }
   if (only_mean) {
     result <- Aver
@@ -52,10 +52,8 @@ add_date_and_season <- function(data = D, year = 2001) {
   data[, Date := Date]
   data[, Season := ""]
   data[Date >= begin_summer & Date < end_summer, Season := "summer"]
-  # Winter is trickier: December and January/February belong to different files
-  # We have to stack years later on
-  data[Date >= begin_january & Date < end_february, Season := "winter_janfeb"]
-  data[Date >= begin_december & Date <= end_december, Season := "winter_dec"]
+  data[Date >= begin_january & Date < end_february, Season := "winter"]
+  data[Date >= begin_december & Date <= end_december, Season := "winter"]
 
   return(data)
 }
@@ -81,7 +79,7 @@ create_filename <- function(quantity = "air.sfc", year = 2000) {
 #' @param year the corresponding reanalysis year
 #' @param seasonal logical.
 #' @param only_mean logical.  If TRUE, onthe the annual mean is returned.
-#'                  If FALSE, the mean, median, 1%, 5%, 10%, 90%, 95%, 99%
+#'                  If FALSE, the mean, median, 5%, 10%, 90%, 95%
 #'                  percentiles are returned.
 #' @param folder the folder where the reanalysis data is downloaded
 #'
@@ -91,32 +89,17 @@ process_gridded_data <- function(quantity = "air.sfc", year = 2001,
                                  seasonal = TRUE, only_mean = FALSE,
                                  folder = "~/Documents/Tmp/MeasurementError") {
 
-  if (year > 2000) {
-    year_before <- year - 1
-    previous_year <- TRUE
-  } else
-    previous_year <- FALSE
-
   filename <- file.path(folder, create_filename(quantity = quantity, year = year))
   raw_data <- data.table(data.frame(readMat(filename)))
   D <- add_date_and_season(data = raw_data, year = year)
-
-  if (previous_year) {
-    filename_year_before <- file.path(folder, create_filename(quantity = quantity, year = year_before))
-    raw_data_year_before <- data.table(data.frame(readMat(filename_year_before)))
-    D_year_before <- add_date_and_season(data = raw_data_year_before, year = year_before)
-  }
 
   # Annual dataset
   Annual <- calculate_descriptives(data = D, only_mean = only_mean, name = "Annual")
 
   if (seasonal) {
-    # Summer and Winter datasets, with December from the year before
+    # Summer and Winter datasets
     D_Summer <- D[Season == "summer"]
-    if (previous_year)
-      D_Winter <- rbind(D_year_before[Season == "winter_dec"], D[Season == "winter_janfeb"])
-    else
-      D_Winter <- D[Season == "winter_janfeb"]
+    D_Winter <- D[Season == "winter"]
     # Summer
     Summer <- calculate_descriptives(data = D_Summer, only_mean = only_mean, name = "Summer")
     # Winter
@@ -143,11 +126,13 @@ list_reanalysis_files <- function() {
 }
 
 # processes <-  list_reanalysis_files()
-# processes <- data.frame(processes)
-# create_filename(processes[1, 1], processes[1, 2])
-
+# f <- create_filename(processes[1, 1], processes[1, 2])
 # air.sfc_2001 <- process_gridded_data(year = 2001)
 # fwrite(air.sfc_2001, "air.sfc_2001.csv")
+
+# negrid <- read.csv("~/Documents/Tmp/MeasurementError/ne_grids.csv")
+# devtools::use_data(negrid)
+
 
 # ##----- A comparison with the bounding box we defined
 #

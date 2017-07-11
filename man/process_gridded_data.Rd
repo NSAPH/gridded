@@ -15,7 +15,7 @@ process_gridded_data(quantity = "air.sfc", year = 2001, seasonal = TRUE,
 \item{seasonal}{logical.}
 
 \item{only_mean}{logical.  If TRUE, onthe the annual mean is returned.
-If FALSE, the mean, median, 1%, 5%, 10%, 90%, 95%, 99%
+If FALSE, the mean, median, 5%, 10%, 90%, 95%
 percentiles are returned.}
 
 \item{folder}{the folder where the reanalysis data is downloaded}
