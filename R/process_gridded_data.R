@@ -59,9 +59,11 @@ add_date_and_season <- function(data = D, year = 2001) {
   Date <- seq.Date(from = as.Date(begin_january), to = as.Date(end_december), by = 1)
   data[, Date := Date]
   data[, Season := ""]
-  data[Date >= begin_summer & Date < end_summer, Season := "summer"]
-  data[Date >= begin_january & Date < end_february, Season := "winter"]
+  data[Date >= begin_january & Date < begin_march, Season := "winter"]
   data[Date >= begin_december & Date <= end_december, Season := "winter"]
+  data[Date >= begin_march & Date < begin_june, Season := "spring"]
+  data[Date >= begin_june & Date < begin_september, Season := "summer"]
+  data[Date >= begin_september & Date < begin_december, Season := "fall"]
 
   return(data)
 }
