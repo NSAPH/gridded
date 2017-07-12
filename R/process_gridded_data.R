@@ -107,17 +107,19 @@ process_gridded_data <- function(quantity = "air.sfc", year = 2001,
   Annual <- calculate_descriptives(data = D, only_mean = only_mean, name = "Annual")
 
   if (seasonal) {
-    # Summer and Winter datasets
-    D_Summer <- D[Season == "summer"]
+    # Season datasets
     D_Winter <- D[Season == "winter"]
-    # Summer
-    Summer <- calculate_descriptives(data = D_Summer, only_mean = only_mean, name = "Summer")
-    # Winter
+    D_Spring <- D[Season == "spring"]
+    D_Summer <- D[Season == "summer"]
+    D_Fall   <- D[Season == "fall"]
     Winter <- calculate_descriptives(data = D_Winter, only_mean = only_mean, name = "Winter")
+    Spring <- calculate_descriptives(data = D_Spring, only_mean = only_mean, name = "Spring")
+    Summer <- calculate_descriptives(data = D_Summer, only_mean = only_mean, name = "Summer")
+    Fall   <- calculate_descriptives(data = D_Fall, only_mean = only_mean, name = "Fall")
   }
 
   if (seasonal)
-    result <- cbind(Year = year, Annual, Summer, Winter)
+    result <- cbind(Year = year, Annual, Winter, Spring, Summer, Fall)
   else
     result <- cbind(Year = year, Annual)
 
