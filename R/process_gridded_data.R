@@ -41,12 +41,20 @@ calculate_descriptives <- function(data = D, only_mean = FALSE, name = "Quantity
 #' @return the data with two added rows: date and season
 
 add_date_and_season <- function(data = D, year = 2001) {
-  begin_january <- paste0(year, "-01-01")
-  end_december <- paste0(year, "-12-31")
-  begin_summer <- paste0(year, "-06-01")
-  end_summer <- paste0(year, "-09-01")
-  end_february <- paste0(year, "-03-01")
-  begin_december <- paste0(year, "-12-01")
+
+  begin_january   <- paste0(year, "-01-01")
+  begin_february  <- paste0(year, "-02-01")
+  begin_march     <- paste0(year, "-03-01")
+  begin_april     <- paste0(year, "-04-01")
+  begin_may       <- paste0(year, "-05-01")
+  begin_june      <- paste0(year, "-06-01")
+  begin_july      <- paste0(year, "-07-01")
+  begin_august    <- paste0(year, "-08-01")
+  begin_september <- paste0(year, "-09-01")
+  begin_october   <- paste0(year, "-10-01")
+  begin_november  <- paste0(year, "-11-01")
+  begin_december  <- paste0(year, "-12-01")
+  end_december    <- paste0(year, "-12-31")
 
   Date <- seq.Date(from = as.Date(begin_january), to = as.Date(end_december), by = 1)
   data[, Date := Date]
